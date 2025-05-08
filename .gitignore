@@ -1,0 +1,58 @@
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Kompilacja Java
+*.class
+
+# Logi
+*.log
+
+# Pliki tymczasowe
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Katalogi budowania
+out/
+target/
+build/
+
+# Pliki testów
+test-output/
+*.ser
+
+# Maven
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+gradle-app.setting
+gradle-app.iml
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Logs & IDE crash reports
+hs_err_pid*
+replay_pid*
+
+# Pliki z konfiguracją środowiska lokalnego
+*.env
+*.local
+
+# Pliki backupów edytorów
+*~
+
