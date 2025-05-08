@@ -6,5 +6,8 @@ public class Main {
     public static void main(String[] args) {
         KnapsackProblem problem = new KnapsackProblem(10,1, 1,10);
         problem.printItems();
+
+        Result result = problem.solve(20);
+        System.out.println(result);
     }
 }

@@ -12,9 +12,18 @@ public class Item implements Comparable<Item> {
         this.weight = weight;
         this.ratio = (double) value / (double) weight;
     }
+
+    public int getValue(){
+        return value;
+    }
+
+    public int getWeight(){
+        return weight;
+    }
+
     @Override
     public int compareTo(Item o) {
-        return Double.compare(this.ratio, o.ratio);
+        return Double.compare(o.ratio, this.ratio);
     }
     @Override
     public String toString() {

@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -27,8 +28,33 @@ public class KnapsackProblem {
     }
 
     public void printItems() {
+        System.out.println("Items: ");
         for(Item item : items) {
             System.out.println(item);
         }
+    }
+
+    public Result solve(int capacity) {
+        int remainingCapacity = capacity;
+        int totalWeight = 0;
+        int totalValue = 0;
+        List<Item> selectedItems = new ArrayList<>();
+
+        Collections.sort(items);
+
+        for(Item item : items) {
+            if(item.getWeight() <= remainingCapacity) {
+                int count = remainingCapacity/item.getWeight();
+                remainingCapacity -= count * item.getWeight();
+                totalWeight += count * item.getWeight();
+                totalValue += count*item.getValue();
+                for (int i = 0; i < count; i++) {
+                    selectedItems.add(item);
+                }
+            }
+
+        }
+
+        return new Result(totalWeight, totalValue, selectedItems);
     }
 }
