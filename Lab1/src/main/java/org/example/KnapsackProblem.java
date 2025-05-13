@@ -27,11 +27,23 @@ public class KnapsackProblem {
         }
     }
 
+    public KnapsackProblem(List<Item> items) {
+        this.n = items.size();
+        this.items = items;
+        this.lowerBound = 0;
+        this.upperBound = 0;
+        this.seed = 0;
+    }
+
     public void printItems() {
         System.out.println("Items: ");
         for(Item item : items) {
             System.out.println(item);
         }
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     public Result solve(int capacity) {

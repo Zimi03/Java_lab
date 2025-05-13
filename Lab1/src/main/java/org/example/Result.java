@@ -13,6 +13,18 @@ public class Result {
         this.selectedItems = selectedItems;
     }
 
+    public List<Item> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public int getTotalWeight() {
+        return totalWeight;
+    }
+
+    public int getTotalValue() {
+        return totalValue;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
