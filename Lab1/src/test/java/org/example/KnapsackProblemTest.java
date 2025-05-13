@@ -69,4 +69,11 @@ class KnapsackProblemTest {
         assertEquals(expectedWeight, result.getTotalWeight());
     }
 
+    @Test
+    public void maxWeightIsInBounds() {
+        KnapsackProblem problem = new KnapsackProblem(10, 1, 1, 10);
+        Result result = problem.solve(10);
+        assertTrue(result.getTotalWeight() <= 10);
+    }
+
 }
