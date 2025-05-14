@@ -7,7 +7,7 @@ public class Main {
         KnapsackProblem problem = new KnapsackProblem(10,1, 1,10);
         problem.printItems();
 
-        Result result = problem.solve(20);
+        Result result = problem.solve(23);
         System.out.println(result);
     }
 }

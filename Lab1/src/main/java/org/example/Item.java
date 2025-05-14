@@ -25,6 +25,7 @@ public class Item implements Comparable<Item> {
     public int compareTo(Item o) {
         return Double.compare(o.ratio, this.ratio);
     }
+
     @Override
     public String toString() {
         return "Id: " + id + " Value: " + value + " Weight: " + weight;
