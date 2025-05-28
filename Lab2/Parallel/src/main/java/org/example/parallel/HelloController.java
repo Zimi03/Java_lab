@@ -62,6 +62,9 @@ public class HelloController {
     @FXML
     private Label modalAlertLabel;
 
+    @FXML
+    private Label originalImageInfoLabel;
+
     private File loadedFile = null;
     private Image originalImage = null;
     private Image processedImage = null;
@@ -98,7 +101,6 @@ public class HelloController {
             }
 
             try {
-                // Usuwanie starych danych / obrazów
                 clearOldImages();
 
                 loadedFile = selectedFile;
@@ -115,6 +117,7 @@ public class HelloController {
                 saveButton.setDisable(false);
                 operationComboBox.setDisable(false);
                 operationComboBox.getSelectionModel().clearSelection();
+                originalImageInfoLabel.setText("");
 
                 showToast("Pomyślnie załadowano plik");
             } catch (Exception e) {
@@ -131,8 +134,6 @@ public class HelloController {
             return;
         }
 
-        // Tu dodaj implementację faktycznego przetwarzania obrazu
-        // Na potrzeby przykładu, kopiujemy oryginał do processedImage (symulacja)
         processedImage = originalImage;
         processedImageView.setImage(processedImage);
 
@@ -147,7 +148,6 @@ public class HelloController {
             return;
         }
 
-        // Pokaż modalne okno zapisu
         filenameField.clear();
         filenameErrorLabel.setVisible(false);
         modalAlertLabel.setVisible(!operationPerformed);
@@ -164,16 +164,12 @@ public class HelloController {
             return;
         }
 
-        // Ukryj błąd
         filenameErrorLabel.setVisible(false);
 
         if (!operationPerformed) {
-            // Jeśli nie było operacji, alert w modalu już widoczny, możemy pozwolić na zapis lub nie
-            // W tym przykładzie blokujemy zapis gdy nie było operacji
             return;
         }
 
-        // Próba zapisu pliku w folderze Obrazy systemu
         try {
             Path picturesDir = Path.of(System.getProperty("user.home"), "Pictures");
             if (!Files.exists(picturesDir)) {
