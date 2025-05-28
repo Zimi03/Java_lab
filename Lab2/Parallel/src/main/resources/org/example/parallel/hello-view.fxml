@@ -1,61 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parallel.HelloController">
+<StackPane xmlns="http://javafx.com/javafx/17.0.2-ea"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="org.example.parallel.HelloController">
   <children>
-    <!-- Nagłówek z nazwą aplikacji i logo -->
-    <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #f0f0f0; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 0;">
-      <children>
-        <ImageView fx:id="logoImageView" fitHeight="50.0" fitWidth="0.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-            <!-- Możesz dodać logo Politechniki Wrocławskiej -->
-            <Image url="@logo-pwr.png" />
-          </image>
-        </ImageView>
-        <Label fx:id="appTitleLabel" text="Aplikacja Równoległa PWr">
-          <font>
-            <Font name="System Bold" size="18.0" />
-          </font>
-        </Label>
-      </children>
-      <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-      </padding>
-    </HBox>
 
-    <!-- Główna zawartość -->
-    <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+    <!-- Główna zawartość aplikacji -->
+    <VBox fx:id="mainContainer" alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
       <children>
+
+        <!-- Nagłówek z logo i tytułem -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #f0f0f0; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 0;">
+          <children>
+            <ImageView fx:id="logoImageView" fitHeight="50.0" fitWidth="0.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@logo-pwr.png" />
+              </image>
+            </ImageView>
+            <Label fx:id="appTitleLabel" text="Aplikacja Równoległa PWr">
+              <font>
+                <Font name="System Bold" size="18.0" />
+              </font>
+            </Label>
+          </children>
+          <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+          </padding>
+        </HBox>
+
+        <!-- Przyciski i operacje -->
         <Label fx:id="welcomeText" text="Witamy w aplikacji równoległej!" textAlignment="CENTER">
           <font>
             <Font size="16.0" />
           </font>
         </Label>
+        <Button fx:id="loadImageButton" text="Wczytaj obraz" onAction="#onLoadImageClick" />
+        <ComboBox fx:id="operationComboBox" promptText="Wybierz operację" prefWidth="300.0" />
+        <Button fx:id="executeButton" text="Wykonaj" onAction="#onExecuteButtonClick" />
+
+        <!-- Podgląd obrazów -->
+        <HBox spacing="20.0" alignment="CENTER">
+          <children>
+            <VBox alignment="CENTER">
+              <Label text="Obraz oryginalny" />
+              <ImageView fx:id="originalImageView" fitWidth="200" preserveRatio="true" />
+            </VBox>
+            <VBox alignment="CENTER">
+              <Label text="Obraz po operacji" />
+              <ImageView fx:id="processedImageView" fitWidth="200" preserveRatio="true" />
+            </VBox>
+          </children>
+        </HBox>
+
+        <!-- Przycisk zapisu -->
+        <Button fx:id="saveButton" text="Zapisz obraz" onAction="#onSaveImageClick" disable="true" />
+
+        <!-- Stopka -->
+        <HBox alignment="CENTER" style="-fx-background-color: #f8f8f8; -fx-border-color: #cccccc; -fx-border-width: 1 0 0 0;">
+          <children>
+            <Label fx:id="authorLabel" text="Autor: [Twoje Imię i Nazwisko] | Politechnika Wrocławska | 2024">
+              <font>
+                <Font size="10.0" />
+              </font>
+            </Label>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+          </padding>
+        </HBox>
+
       </children>
       <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </padding>
     </VBox>
 
-    <!-- Stopka z danymi autora -->
-    <HBox alignment="CENTER" style="-fx-background-color: #f8f8f8; -fx-border-color: #cccccc; -fx-border-width: 1 0 0 0;">
-      <children>
-        <Label fx:id="authorLabel" text="Autor: [Twoje Imię i Nazwisko] | Politechnika Wrocławska | 2024">
-          <font>
-            <Font size="10.0" />
-          </font>
-        </Label>
-      </children>
-      <padding>
-        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-      </padding>
-    </HBox>
+    <!-- Toast -->
+    <Label fx:id="toastMessage" text=""
+           style="-fx-background-color: #ffcccc; -fx-text-fill: #b00000; -fx-padding: 10px; -fx-background-radius: 5px;"
+           visible="false"
+           StackPane.alignment="BOTTOM_CENTER"
+    />
+
+    <!-- Modalne okno zapisu -->
+    <VBox fx:id="saveModal"
+          visible="false"
+          alignment="CENTER"
+          spacing="10"
+          maxWidth="400"
+          style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-width: 1; -fx-padding: 20; -fx-background-radius: 10;"
+          StackPane.alignment="CENTER">
+      <Label fx:id="modalAlertLabel" text="Na pliku nie zostały wykonane żadne operacje!" textFill="orange" visible="false" />
+      <TextField fx:id="filenameField" promptText="Wprowadź nazwę pliku" />
+      <Label fx:id="filenameErrorLabel" text="Wpisz co najmniej 3 znaki" textFill="red" visible="false" />
+      <HBox alignment="CENTER" spacing="10">
+        <Button text="Zapisz" onAction="#onConfirmSaveClick"/>
+        <Button text="Anuluj" onAction="#onCancelSaveClick"/>
+      </HBox>
+    </VBox>
+
   </children>
-</VBox>
+</StackPane>
